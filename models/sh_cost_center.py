@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 from odoo.osv import expression
 
 
@@ -32,3 +33,8 @@ class ShCostCenter(models.Model):
         domain = expression.AND([['|', '|', ('sh_code', operator, name), ('sh_title', operator, name), ('display_name', operator, name)], args]) if name else args
         recs = self.search(domain, limit=limit)
         return [i[0] for i in recs.name_get()]
+    
+    @api.constrains('parent_id')
+    def _check_category_recursion(self):
+        if not self._check_recursion():
+            raise ValidationError(_('No puede crear centros de costo recursivos.'))
