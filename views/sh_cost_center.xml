@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sh_cost_center_form_view" model="ir.ui.view">
+        <field name="name">sh.cost.center.form.view</field>
+        <field name="model">sh.cost.center</field>
+        <field name="inherit_id" ref="sh_cost_center.sh_cost_center_form_view"/>
+        <field name="arch" type="xml">
+            <field name="sh_title" position="after">
+                <field name="parent_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>
