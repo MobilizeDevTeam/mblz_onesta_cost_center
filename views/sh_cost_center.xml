@@ -6,7 +6,8 @@
         <field name="inherit_id" ref="sh_cost_center.sh_cost_center_form_view"/>
         <field name="arch" type="xml">
             <field name="sh_title" position="after">
-                <field name="parent_id"/>
+                <field name="id" invisible="1"/>
+                <field name="parent_id" domain="[('id', '!=', id)]"/>
             </field>
         </field>
     </record>
