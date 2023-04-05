@@ -1,0 +1,18 @@
+<odoo>
+    <template id="search_template_costcenter">
+        <button t-if="options.get('use_costcenter')" type="button" class="o-no-caret btn btn-secondary dropdown-toggle account_costcenter_filter" data-bs-toggle="dropdown">
+            <span class="fa fa-folder-open"/> Centro de costo
+        </button>
+        <ul class="dropdown-menu o_filter_menu" role="menu">
+            <li class="o_account_report_search js_account_costcenter_m2m"/>
+        </ul>
+    </template>
+
+    <template id="search_template" inherit_id="account_reports.search_template">
+        <xpath expr="//div[8]" position="after">
+            <div class="btn-group dropdown o_account_reports_filter_costcenter" t-if="options.get('use_costcenter')">
+                <t t-call="mblz_onesta_cost_center.search_template_costcenter"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
