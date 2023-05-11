@@ -6,7 +6,7 @@
     'category': 'Mobilize/Apps',
     "application": True,
     "license": 'OPL-1',
-    "depends": [ "purchase", "web", "sh_cost_center", "account", "account_reports", "stock_account" ],
+    "depends": [ "purchase", "web", "sh_cost_center", "account", "account_reports", "stock_account", "stock_landed_costs" ],
     "data": [
         "views/search_template_view.xml",
         "views/sh_cost_center.xml",
