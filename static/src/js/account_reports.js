@@ -115,8 +115,8 @@ var M2MFilters = Widget.extend(StandaloneFieldManagerMixin, {
     },
 });
 
-console.log(account_report);
-account_report.include({
+
+account_report.accountReportsWidget.include({
     init: function(parent, action) {
         return this._super.apply(this, arguments);
     },
