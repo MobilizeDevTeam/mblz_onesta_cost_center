@@ -6,10 +6,11 @@
     'category': 'Mobilize/Apps',
     "application": True,
     "license": 'OPL-1',
-    "depends": [ "purchase", "web", "sh_cost_center", "account", "account_reports", "stock_account", "stock_landed_costs" ],
+    "depends": [ "purchase", "web", "sh_cost_center", "account", "account_reports", "stock_account", "stock_landed_costs", "analytic" ],
     "data": [
         "views/search_template_view.xml",
         "views/sh_cost_center.xml",
+        "views/account_analytic_line.xml",
     ],
     "summary": "Onesta - centro de costo",
     "description": """
