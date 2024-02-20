@@ -13,7 +13,7 @@ class ShCostCenter(models.Model):
     def _get_path_name(self):
         name = self.sh_title
         if self.parent_id:
-            name = self.parent_id._get_path_name() + ' / ' + name
+            name = self.parent_id._get_path_name() + ' / ' + (self.name or '-')
         return name
     
     @api.depends('sh_code', 'sh_title', 'parent_id')
