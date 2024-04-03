@@ -29,13 +29,9 @@ class StockValuationLayer(models.Model):
                         analytic = list(sale_id.order_line[0].analytic_distribution.keys())[0]
                         if analytic.isdigit():
                             line.analytic_distribution = {str(analytic): 100}
-            _logger.info(rec.stock_move_id)
-            _logger.info(self.env.context.get('active_id'))
-            _logger.info(self.env.context.get('active_model'))
-            scrap_id = self.env['stock.scrap'].browse(self.env.context.get('active_ids', []))
-            # esto no funciona ya que la relación no existe en el momento de validar
-            # scrap_id = self.env['stock.scrap'].search([('move_id','=',rec.stock_move_id.id)])
-            if scrap_id:
+            # NOTE: este bloque depende del modulo mblz_onesta_lot_analytic
+            # no usa como dependencia ya que genera un efecto cíclico
+            if rec.stock_move_id.analytic_distribution:
                 for line in rec.account_move_id.line_ids:
-                    line.analytic_distribution = scrap_id.analytic_distribution
+                    line.analytic_distribution = rec.stock_move_id.analytic_distribution
         return res
