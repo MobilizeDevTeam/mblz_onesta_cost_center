@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from odoo import models, api, _, fields
 from odoo.exceptions import UserError
+import logging
+
+_logger = logging.getLogger('onesta --> ')
 
 
 class StockValuationLayer(models.Model):
@@ -27,6 +30,7 @@ class StockValuationLayer(models.Model):
                         if analytic.isdigit():
                             line.analytic_distribution = {str(analytic): 100}
             scrap_id = self.env['stock.scrap'].search([('move_id','=',rec.stock_move_id.id)])
+            _logger.info(scrap_id)
             if scrap_id:
                 for line in rec.account_move_id.line_ids:
                     line.analytic_distribution = scrap_id.analytic_distribution
