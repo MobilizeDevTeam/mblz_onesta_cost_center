@@ -6,8 +6,6 @@ from odoo.exceptions import UserError
 class StockValuationLayer(models.Model):
     _inherit = 'stock.valuation.layer'
     
-    
-    
     def _validate_accounting_entries(self):
         res = super(StockValuationLayer, self)._validate_accounting_entries()
         for rec in self:
@@ -16,6 +14,8 @@ class StockValuationLayer(models.Model):
                 for line in rec.account_move_id.line_ids:
                     if purchase_id.order_line[0].analytic_distribution:
                         analytic = list(purchase_id.order_line[0].analytic_distribution.keys())[0]
+                        # NOTE: se presentan casos donde el analitico es así: {"false": 100}
+                        # terminando en un error por no poder convertirlo a un entero
                         if analytic.isdigit():
                             line.analytic_distribution = {str(analytic): 100}
             
@@ -26,4 +26,8 @@ class StockValuationLayer(models.Model):
                         analytic = list(sale_id.order_line[0].analytic_distribution.keys())[0]
                         if analytic.isdigit():
                             line.analytic_distribution = {str(analytic): 100}
+            scrap_id = self.env['stock.scrap'].search([('move_id','=',rec.stock_move_id.id)])
+            if scrap_id:
+                for line in rec.account_move_id.line_ids:
+                    line.analytic_distribution = scrap_id.analytic_distribution
         return res
