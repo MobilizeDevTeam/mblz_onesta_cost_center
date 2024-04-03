@@ -29,6 +29,7 @@ class StockValuationLayer(models.Model):
                         analytic = list(sale_id.order_line[0].analytic_distribution.keys())[0]
                         if analytic.isdigit():
                             line.analytic_distribution = {str(analytic): 100}
+            _logger.info(rec.stock_move_id)
             scrap_id = self.env['stock.scrap'].search([('move_id','=',rec.stock_move_id.id)])
             _logger.info(scrap_id)
             if scrap_id:
