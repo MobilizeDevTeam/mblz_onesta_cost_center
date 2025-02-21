@@ -34,4 +34,6 @@ class StockValuationLayer(models.Model):
             elif rec.stock_move_id.analytic_distribution:
                 for line in rec.account_move_id.line_ids:
                     line.analytic_distribution = rec.stock_move_id.analytic_distribution
+                    if rec.stock_move.picking_id and rec.stock_move.picking_id.sh_cost_center_id:
+                        line.sh_cost_center_id = rec.stock_move.picking_id.sh_cost_center_id
         return res
